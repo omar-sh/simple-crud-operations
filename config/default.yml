@@ -1,0 +1,10 @@
+port: 3000
+database:
+  client: mysql
+  connection:
+    host: 'db'
+    user: 'root'
+    password: 'password'
+    database: 'db'
+    port: '3306'
+

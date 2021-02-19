@@ -1,0 +1,17 @@
+FROM node:12-alpine
+
+WORKDIR /migrater
+
+COPY ./knexfile.js ./wait-for-it.sh  ./
+
+ADD ./src/database/migrations ./src/database/migrations/
+
+RUN ls ./src/database
+RUN npm install knex
+
+RUN npm install mysql
+
+RUN apk add bash
+
+RUN  chmod  777  wait-for-it.sh
+

@@ -1,0 +1,56 @@
+version: '3.6'
+
+services:
+
+  db:
+    image: mysql:5.7.28
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      innodb_log_file_size=: '56M'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+      DATABASE_HOST: db
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "127.0.0.1:3000:3000"
+    expose:
+      - "3000"
+    links:
+      - db
+    networks:
+      - app-network
+
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile.migrate
+    command: ["./wait-for-it.sh", "db:3306", "--", "./node_modules/knex/bin/cli.js", "migrate:latest"]
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  my-db:
+networks:
+  app-network:
+    driver: bridge
