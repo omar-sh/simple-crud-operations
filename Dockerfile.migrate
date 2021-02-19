@@ -6,7 +6,6 @@ COPY ./knexfile.js ./wait-for-it.sh  ./
 
 ADD ./src/database/migrations ./src/database/migrations/
 
-RUN ls ./src/database
 RUN npm install knex
 
 RUN npm install mysql
