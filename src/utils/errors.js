@@ -1,7 +1,5 @@
 module.exports = {
-
   common: {
-
     validationError: {
       statusCode: 400,
       code: 100,
@@ -12,9 +10,5 @@ module.exports = {
       code: 101,
       message: 'item_not_found'
     }
-
-
   }
-
-
 }

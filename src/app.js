@@ -5,10 +5,22 @@ const config = require('./utils/config');
 const port = config.port || 8080;
 const routes = require('./routes')
 const MidException = require('./utils/MidException');
-console.log(config.database);
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(routes)
+
+
+app.use((req,res,next) => {
+
+  res.status(404).send({
+    message: 'not_found',
+    statusCode: 404,
+    code: 101,
+    details: null
+  })
+
+
+})
 
 app.use((err, req, res, next) => {
   const errorObj = {
@@ -26,4 +38,6 @@ app.use((err, req, res, next) => {
   console.log('err', err);
   return res.status(errorObj.statusCode).send(errorObj);
 })
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`)
+});
