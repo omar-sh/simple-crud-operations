@@ -11,15 +11,12 @@ app.use(routes)
 
 
 app.use((req,res,next) => {
-
   res.status(404).send({
     message: 'not_found',
     statusCode: 404,
     code: 101,
     details: null
   })
-
-
 })
 
 app.use((err, req, res, next) => {

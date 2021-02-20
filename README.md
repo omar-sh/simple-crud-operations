@@ -1,10 +1,10 @@
 ## CRUD operations for employees table
 
 I made it easier for you to run the project by dockerizing the app
-so you can run the app by installing Docker and then run the following 
+so you can run it by installing Docker and then run the following 
 command inside project directory
 
-``docker-compose up``
+``docker-compose up --build``
 
 ### APIs
 
